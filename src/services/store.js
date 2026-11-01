@@ -1,3 +1,24 @@
+// Agregar al inicio de src/services/store.js
+import { db } from './firebase'
+import { collection, doc, setDoc, onSnapshot } from 'firebase/firestore'
+
+// Función para sincronizar los datos semilla e iniciar el listener en tiempo real (onSnapshot)
+export function initFirebaseSync(storeInstance) {
+  const reportsCol = collection(db, 'reports')
+
+  // Escuchador reactivo en tiempo real (Sprint 3)
+  onSnapshot(reportsCol, (snapshot) => {
+    if (snapshot.empty) {
+      // Si Firestore está vacío, sube automáticamente los 5 reportes iniciales
+      storeInstance.reports.forEach(rep => {
+        setDoc(doc(db, 'reports', rep.id), rep)
+      })
+    } else {
+      storeInstance.reports = snapshot.docs.map(d => d.data())
+      storeInstance.saveReports()
+    }
+  })
+}
 import { reactive, watch } from 'vue'
 
 const STORAGE_KEY = 'udg_reportes_mantenimiento_data_v1'
