@@ -437,7 +437,7 @@ function removePhoto(idx) {
   form.fotos.splice(idx, 1)
 }
 
-function submitReport() {
+async function submitReport() {
   errors.descripcion = ''
   if (!form.descripcion.trim()) {
     errors.descripcion = 'Ingresa una breve descripción de la avería.'
@@ -446,8 +446,8 @@ function submitReport() {
 
   isSubmitting.value = true
 
-  setTimeout(() => {
-    const created = store.createReport({
+  try {
+    const created = await store.createReport({
       titulo: form.titulo,
       categoria: form.categoria,
       severidad: form.severidad,
@@ -456,8 +456,9 @@ function submitReport() {
       fotos: form.fotos
     })
 
-    isSubmitting.value = false
     router.push({ name: 'reporte-detalle', params: { id: created.id } })
-  }, 400)
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
