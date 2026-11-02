@@ -5,13 +5,13 @@ import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
+    apiKey: "AIzaSyCrnLFTZYwBff-wDHdp9EEJN9vWe549AbA",
     authDomain: "udg-mantenimiento-p8.firebaseapp.com",
     projectId: "udg-mantenimiento-p8",
-    storageBucket: "udg-mantenimiento-p8.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
-}
+    storageBucket: "udg-mantenimiento-p8.firebasestorage.app",
+    messagingSenderId: "492699804822",
+    appId: "1:492699804822:web:1bb344e93035974a79ceb7"
+};
 
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
